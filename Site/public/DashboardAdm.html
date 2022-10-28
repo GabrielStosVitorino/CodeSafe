@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="CSS/Safecss.css">
+    <!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet"> -->
+    <link rel="stylesheet"
+        href="https://fonts.sandbox.google.com/css?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet"
+        href="https://fonts.sandbox.google.com/css?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <title>CodeSafe | Tela gerencial</title>
+</head>
+
+<body onload="validarSessao(), atualizarServidores()" class="corpo">
+    <div class="container6">
+        <aside>
+            <div class="top">
+                <div class="code">
+                    <img src="Imagens/logo.png" alt="">
+                </div>
+                <div class="close" id="close-btn">
+                    <span class="material-symbols-outlined">close</span>
+                </div>
+            </div>
+            <div class="sidebar">
+                <a href="#" class="active">
+                    <span class="material-symbols-outlined">grid_view</span>
+                    <h3>Dashboard</h3>
+                </a>
+
+                <a href="CadastroAdm.html">
+                    <span class="material-symbols-outlined">person_add</span>
+                    <h3>Cadastrar usuário</h3>
+                </a>
+
+                <a href="CadastroChave.html">
+                    <span class="material-symbols-outlined">key</span>
+                    <h3>Cadastrar Chave</h3>
+                </a>
+
+                <a href="Index.html">
+                    <span class="material-symbols-outlined">logout</span>
+                    <h3>Sair</h3>
+                </a>
+            </div>
+        </aside>
+
+        <main>
+
+            <div class="right">
+                <div class="top">
+                    <button class="menu-btn">
+                        <span class="material-symbols-outlined">menu</span>
+                    </button>
+                    <div class="theme-toggler">
+                        <span class="material-symbols-outlined active">light_mode</span>
+                        <span class="material-symbols-outlined">dark_mode</span>
+                    </div>
+                    <div class="profile">
+                        <div class="info">
+                            <p>Olá, <b><span id="nomeUsuario"></span></b>!</p>
+                        </div>
+                        <div class="photoProfile">
+                            <span class="material-symbols-outlined">account_circle</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h1 class="dash">Dashboard</h1>
+            
+            <div class="date date3">
+                <h2 class="pe2" id="legendaRisco">Risco</h2>
+            </div>
+            
+            <div class="date date2">
+                <h2 class="pe2" id="legendaIncidente">Incidente<h2>
+            </div>
+
+            <div class="insights2">
+                <div class="sales">
+                    <span class="material-symbols-outlined">monitor_heart</span>
+                    <div class="middle">
+                        <div class="left">
+                            <h3>Quantidade de servidores ativos</h3>
+                            <h1><span id="servidoresAtivos">0</span></h1>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="expense">
+                    <span class="material-symbols-outlined">bar_chart</span>
+                    <div class="middle">
+                        <div class="left">
+                            <h3>Percentual de servidores ativos acima de 80% de RAM</h3>
+                            <h1><span id="spanRAM">0%</span></h1>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="income">
+                    <span class="material-symbols-outlined">monitoring</span>
+                    <div class="middle">
+                        <div class="left">
+                            <h3>Percentual de servidores ativos acima de 80% de CPU</h3>
+                            <h1><span id="spanCPU">0%</span></h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="recent-order">
+                <h2>Servidores</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="tt">ID</th>
+                            <th class="tt2">Hostname</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div id="lista_servidores"></div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- <a href="#">Mostrar tudo</a> -->
+            </div>
+        </main>
+    </div>
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+    <script src="Chart.js"></script>
+    <script src="Usuario.js"></script>
+    <script src="Menu.js"></script>
+    <script src="Alerts.js"></script>
+    <script src="JavaScript/Ordres.js"></script>
+</body>
+<script id="ze-snippet" src="https://static.zdassets.com/ekr/snippet.js?key=37b28890-b4be-40a9-933d-874eb1142f55"> </script>
+
+</html>
+<script>
+
+    // CONTADOR SERVIDORES ATIVOS/////////
+    const date = new Date();
+    var dataAtual = date.getDate();
+    var contadorServidores = 0;
+    var contadorAcimaRAM = 0;
+    var contadorAcimaCPU = 0;
+
+    function validarSessao() {
+        var usuario = sessionStorage.USUARIO;
+        var senha = sessionStorage.SENHA;
+       
+
+        if (usuario != null && senha != null) {
+
+            nomeUsuario.innerHTML = (`${usuario}`);
+            // finalizarAguardar();
+        }
+    }
+
+    function atualizarServidores(fkEmpresa) {
+        var fkEmpresa = sessionStorage.FK_EMPRESA;
+        // aguardar();
+        fetch(`/medidas/listarServidores/${fkEmpresa}`).then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+                    var feed = document.getElementById("lista_servidores");
+                    var mensagem = document.createElement("span");
+                    mensagem.innerHTML = "Nenhum resultado encontrado."
+                    feed.appendChild(mensagem);
+                    throw "Nenhum resultado encontrado!!";
+                }
+
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+                    var feed = document.getElementById("lista_servidores");
+                    feed.innerHTML = "";
+                    for (var i = 0; i < resposta.length; i++) {
+                        var servidor = resposta[i];
+
+                        // criando e manipulando elementos do HTML via JavaScript
+                        var divServidor = document.createElement("div");
+                        var spanID = document.createElement("span");
+                        var spanTitulo = document.createElement("span");
+                        var divButtons = document.createElement("div");
+
+                        spanID.innerHTML = servidor.idServidor + "<br>";
+                        spanTitulo.innerHTML = servidor.funcao + "<br>";
+                        divButtons.innerHTML = "Detalhes";
+
+
+                        //Acertar class para CSS
+                        divServidor.className = "publicacao";
+                        divServidor.id = "divServidor" + servidor.idServidor
+                        spanTitulo.id = "inputNumero" + servidor.idServidor;
+                        spanTitulo.className = "publicacao-titulo";
+
+                        divButtons.className = "div-buttons";
+                        divButtons.id = servidor.idServidor + "," + servidor.funcao;
+
+
+                        divServidor.appendChild(spanID);
+                        divServidor.appendChild(spanTitulo);
+                        divServidor.appendChild(divButtons);
+                        feed.appendChild(divServidor);
+
+                        divButtons.addEventListener("click", carregarDashboard);
+
+                        verificarServidoresEmRisco(servidor.idServidor);
+                        // Acionar contador de servidores logados
+                        var ultimaData;
+                        pegarUltimaData(servidor.idServidor).then((resposta) => {
+                            ultimaData = resposta;
+                            if (ultimaData == dataAtual) {
+                                contadorServidores++;
+                                document.getElementById("servidoresAtivos").innerHTML = contadorServidores;
+                            }
+
+                        });
+                        ///////////////////////////////////
+                    }
+
+                    // finalizarAguardar();
+                });
+            } else {
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+            // finalizarAguardar();
+        });
+
+    }
+
+    function carregarDashboard() {
+        var dadoServidor = this.id.split(",");
+        var idServidor = dadoServidor[0];
+        var nomeServidor = dadoServidor[1];
+        sessionStorage.ID_SERVIDOR = idServidor;
+        sessionStorage.NOME_SERVIDOR = nomeServidor;
+        window.location = "./DashboardDetalhes.html";
+    }
+
+    async function verificarServidoresEmRisco(idServidor) {
+        var ultimosDados = await fetch(`/medidas/buscarServidoresEmRisco/${idServidor}`);
+        if (ultimosDados.status === 200) {
+            ultimosDados = await ultimosDados.json();
+            var ultimoDadoCPU = ultimosDados.percentualCPU;
+            var ultimoDadoRAM = ultimosDados.percentualRAM;
+
+            if (ultimoDadoRAM >= 80) {
+                contadorAcimaRAM++;
+                porcentagemServidoresRAM = (contadorAcimaRAM * 100) / contadorServidores;
+                document.getElementById("spanRAM").innerHTML = porcentagemServidoresRAM.toFixed(2) + "%";
+            }
+
+            if(ultimoDadoRAM >= 90 || ultimoDadoCPU >= 90){
+                document.getElementById(`divServidor${idServidor}`).style.background = '#ec3434';
+            } else if (ultimoDadoRAM >= 70 || ultimoDadoCPU >= 70){
+                document.getElementById(`divServidor${idServidor}`).style.background = '#dfdf00';
+            }
+            
+            if (ultimoDadoCPU >= 80) {
+                contadorAcimaCPU++;
+                porcentagemServidoresCPU = (contadorAcimaCPU * 100) / contadorServidores;
+                document.getElementById("spanCPU").innerHTML = porcentagemServidoresCPU.toFixed(2) + "%";
+            }
+        }
+    }
+
+    async function pegarUltimaData(idServidor) {
+        var ultimaData = await fetch(`/medidas/buscarUltimaData/${idServidor}`);
+        if (ultimaData.status === 200) {
+            ultimaData = await ultimaData.json();
+            var dataColetada = ultimaData[0].dia;
+            return dataColetada;
+        }
+        return 0;
+    }
+    ///////////////////////////////
+</script>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/ea8cfd2902.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="CSS/Safecss.css">
+    <title>CodeSafe | Cadastro de chave</title>
+</head>
+<body class="mac">
+    <div class="header2">
+        <h2 class="logo"></h2>
+        <ul id="navegar">
+            <li><a href="DashboardAdm.html">Voltar</a></li>
+        </ul>
+    </div>
+    <div class="container8">
+        <div class="blue">
+            <div class="chave segura">
+                <h2>Gere uma chave de segurança aqui!</h2>
+                <button class="cadchave">Gerar</button>
+            </div>
+
+            <div class="chave">
+                <h2>Cadastre a chave de segurança aqui!</h2>
+                <button class="altchave">Cadastre</button>
+            </div>
+        </div>
+        <div class="caixa">
+            <div class="forma cadforma">
+                    <form class="alt">
+                        <h3>Gerar uma chave de segurança</h3>
+                        <div class="input-div2 um">
+                            <div class="i2">
+                                <i class="fa fa-key"></i>
+                            </div>
+                            <div class="vai">
+                                <!-- <h5>Chave segura</h5> -->
+                                <textarea id="chave" cols="30" rows="10"></textarea>
+                                <button class="bt"><i class="fa fa-clone"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- <input type="submit" value="Gerar" onclick="gerarChave()"> -->
+                    <button onclick="gerarChave()">Gerar</button>
+            </div>
+
+            <div class="forma altforma">
+                <form class="alt"  id="form_chave">
+                    <input type="hidden" id="sla">
+                    <h3>Insira a chave de segurança</h3>
+                    <div class="input-div2 um">
+                        <div class="i2">
+                            <i class="fa fa-key"></i>
+                        </div>
+                        <div>
+                            <h5>Chave segura</h5>
+                            <input class="inp2" name="num_Chave" type="text">
+                        </div>
+                    </div>
+                    
+                   <!--  /* <input type="submit"  onclick="cadastrarChave()"> */ -->
+                   
+                </form>
+                <button value="Cadastrar" onclick="cadastrarChave()">Cadastrar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="Move.js"></script>
+    <script src="JavaScript/Copiar.js"></script>
+    <script src="JavaScript/Input.js"></script>
+    <script src="JavaScript/script.js"></script>
+</body>
+</html>

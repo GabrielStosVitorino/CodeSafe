@@ -1,0 +1,1 @@
+  07/03/2022 22:53:15 BRT: iniciando composição “RENDER THIS”.  Saída para: /Users/stefanini/Documents/CodeSafe/Abertura.mov    08/03/2022 00:07:14 BRT: composição concluída “RENDER THIS”.  Tempo total decorrido: 1 h, 13 minLog fechado em 08/03/2022 às 00:07:20 BRT

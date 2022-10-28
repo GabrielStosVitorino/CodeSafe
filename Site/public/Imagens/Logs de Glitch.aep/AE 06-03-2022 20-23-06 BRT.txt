@@ -1,0 +1,1 @@
+  06/03/2022 20:23:06 BRT: iniciando composição “Composição 1”.  Saída para: /Users/stefanini/Documents/CodeSafe/Cadeado.mov    06/03/2022 20:23:11 BRT: composição concluída “Composição 1”.  Tempo total decorrido: 5 segundosLog fechado em 06/03/2022 às 20:23:11 BRT

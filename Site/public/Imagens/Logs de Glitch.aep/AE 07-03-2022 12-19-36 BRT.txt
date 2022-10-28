@@ -1,0 +1,1 @@
+  07/03/2022 12:19:36 BRT: iniciando composição “Composição 1”.  Saída para: /Users/stefanini/Documents/CodeSafe/transpa.mov    07/03/2022 12:19:40 BRT: composição concluída “Composição 1”.  Tempo total decorrido: 4 segundosLog fechado em 07/03/2022 às 12:19:41 BRT

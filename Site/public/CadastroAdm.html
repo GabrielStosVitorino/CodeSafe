@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/ea8cfd2902.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="CSS/Safecss.css">
+    <title>CodeSafe | Cadastro</title>
+</head>
+
+<body class="tudoo">
+    <img src="Imagens/wave blue.png" alt="" class="wave">
+    <div class="container7">
+        <div class="img">
+            <img src="Imagens/undraw_lost_online_re_upmy.svg" alt="">
+            <a class="volt" href="DashboardAdm.html">Voltar</a>
+        </div>
+        <div class="cad-container">
+            <form class="cads" method="dialog" id="form_cadusuario">
+                <img class="avatar" src="Imagens/undraw_male_avatar_323b.svg" alt="">
+                <h2>Bem-Vindo,</h2>
+                <h3 style="color: #fff;"><span id="nomeUsuario"></span></h3>
+                <h4>Cadastre aqui um novo usuário</h4>
+                <div class="input-div um">
+                    <div class="i">
+                        <i class="fa fa-user-circle"></i>
+                    </div>
+                    <div>
+
+                        <h5>Nome completo</h5>
+                        <input class="inp" type="text" name="nome_comp">
+                    </div>
+                </div>
+
+                <div class="input-div dois">
+                    <div class="i">
+                        <i class="fa fa-user-circle"></i>
+                    </div>
+                    <div>
+                        <h5>Nome usuário</h5>
+                        <input class="inp" type="text" name="usuario">
+                    </div>
+                </div>
+
+                <div class="input-div tres">
+                    <div class="i">
+                        <i class="fa fa-envelope"></i>
+                    </div>
+                    <div>
+                        <h5>E-mail</h5>
+                        <input class="inp" type="text" name="email_usu">
+                    </div>
+                </div>
+
+                <div class="input-div quatro">
+                    <div class="i">
+                        <i class="fa fa-lock"></i>
+                    </div>
+                    <div>
+                        <h5>Senha</h5>
+                        <input class="inp" type="password" name="senha">
+                    </div>
+                </div>
+
+                <div class="input-div cinco">
+                    <div class="i">
+                        <i class="fa fa-lock"></i>
+                    </div>
+                    <div>
+                        <select class="inp" name="tipoUsuario" id="tipo_Usuario">
+                            <option selected disabled value="">Tipo de Usuário</option>
+                            <option name="tipoAdm" value="adm">Administrador</option>
+                            <option name="tipoComum" value="comum">Comum</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button class="buton" onclick="cadastrarUsuario()">Cadastrar</button>
+                <a class="volt2" href="DashboardAdm.html">Voltar</a>
+
+            </form>
+
+        </div>
+    </div>
+
+
+
+
+</body>
+
+</html>
+
+<script src="JavaScript/script.js"></script>
+<script src="JavaScript/Input.js"></script>

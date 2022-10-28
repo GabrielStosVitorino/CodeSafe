@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/ea8cfd2902.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="CSS/Safecss.css">
+    <title>CodeSafe | Cadastro</title>
+</head>
+<body>
+    <div class="container5">
+        <div class="circle5"></div>
+        <h1 class="titulo">Cadastrar Empresa</h1>
+        <div class="all">
+            <form class="cad2" method="dialog" id="form_cadastro">
+  
+                <div class="caad">
+                    <h2>Dados Principais</h2>
+                <div class="nomes">
+                    <label>Nome Fantasia</label>
+                    <input class="empresa" type="text" name="nome_fantasia">
+                </div>
+
+                <div class="nomes">
+                    <label>Razão Social</label>
+                    <input class="razao" type="text" name="razao_social">
+                </div>
+
+                <div class="nomes">
+                    <label>Tipo de Pessoa</label>
+                    <select class="pessoa" name="tipo_pessoa" id="">
+                        <option selected disabled value="">Escolha uma das opções</option>
+                        <option value="fisica">Física</option>
+                        <option value="juridica">Jurídica</option>
+                    </select>
+                </div>
+
+                <div class="nomes">
+                    <label>CNPJ</label>
+                    <input class="cnpj" type="text" name="cnpj">
+                </div>
+
+                <div class="nomes">
+                    <label>Inscrição Estadual</label>
+                    <input class="estadual" type="text" name="estadual">
+                </div>
+
+                <div class="nomes">
+                    <label>Inscrição Municipal</label>
+                    <input class="municipal" type="text" name="municipal">
+                </div>
+
+                <div class="nomes">
+                    <label>Site</label>
+                    <input class="site" type="text" name="site">
+                </div>
+                </div>
+            
+    
+                <div class="cad3">
+                    <h2>Endereço</h2>
+                <div class="nomes">
+                    <label>Logradouro</label>
+                    <input class="logradouro" type="text" name="logradouro">
+                </div>
+
+                <div class="nomes">
+                    <label>Número</label>
+                    <input class="numero" type="text" name="numero">
+                </div>
+
+                <div class="nomes">
+                    <label>Bairro</label>
+                    <input class="bairro" type="text" name="bairro">
+                </div>
+
+                <div class="nomes">
+                    <label>Cidade</label>
+                    <input class="cidade" type="text" name="cidade">
+                </div>
+                
+                <div class="nomes">
+                    <label>Estado</label>
+                    <input class="estado" type="text" name="estado">
+                </div>
+                </div>
+            
+                <div class="cad4">
+                    <h2>Informações de contato</h2>
+                    <div class="nomes">
+                        <label>Telefone</label>
+                        <input class="telefone" type="text" name="telefone">
+                    </div>
+    
+                    <div class="nomes">
+                        <label>Celular</label>
+                        <input class="celular" type="text" name="celular">
+                    </div>
+    
+                    <div class="nomes">
+                        <label>E-mail</label>
+                        <input class="email" type="text" name="email_empresa">
+                    </div>
+    
+                    <div class="nomes">
+                        <label>Responsável</label>
+                        <input class="responsavel" type="text" name="responsavel">
+                    </div>
+                    
+                    <div class="nomes">
+                        <label>Telefone responsável</label>
+                        <input class="estado" type="text" name="telefone_resp">
+                    </div>
+    
+                    <div class="nomes">
+                        <label>Celular<br>responsável</label>
+                        <input class="celrespon" type="text" name="celular_resp">
+                    </div>
+    
+                    <div class="nomes">
+                        <label>E-mail<br>responsável</label>
+                        <input class="email" type="text" name="email_resp">
+                    </div>
+                </div>
+
+
+            </form>
+
+        </div>
+        <button onclick="cadastrarEmpresa()" class="btncad">Enviar</button>      
+                  
+    </div>
+
+</body>
+</html>
+
+
+<script src="JavaScript/script.js"></script>
+
+
+

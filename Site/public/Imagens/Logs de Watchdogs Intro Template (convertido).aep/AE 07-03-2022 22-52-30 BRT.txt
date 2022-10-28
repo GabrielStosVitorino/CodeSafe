@@ -1,0 +1,1 @@
+  07/03/2022 22:52:30 BRT: iniciando composição “TEXT”.  Saída para: /Users/stefanini/Documents/CodeSafe/Abertura.mov      Renderização interrompida pelo usuário.    07/03/2022 22:52:33 BRT: composição concluída “TEXT”.  Tempo total decorrido: 3 segundosLog fechado em 07/03/2022 às 22:52:33 BRT

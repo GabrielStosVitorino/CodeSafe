@@ -1,0 +1,136 @@
+2022-04-11 17:40:25 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Constraint "FKEMPRESA" already exists; SQL statement:
+create table servidor(
+idServidor int primary key auto_increment,
+funcao varchar(45),
+sistema varchar (45),
+fkEmpresa int,
+constraint fkEmpresa foreign key (fkEmpresa)
+	references empresa (idEmpresa)
+) [90045-199]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:573)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:427)
+	at org.h2.message.DbException.get(DbException.java:205)
+	at org.h2.message.DbException.get(DbException.java:181)
+	at org.h2.command.ddl.AlterTableAddConstraint.tryUpdate(AlterTableAddConstraint.java:114)
+	at org.h2.command.ddl.AlterTableAddConstraint.update(AlterTableAddConstraint.java:78)
+	at org.h2.command.ddl.CommandWithColumns.createConstraints(CommandWithColumns.java:83)
+	at org.h2.command.ddl.CreateTable.update(CreateTable.java:129)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:133)
+	at org.h2.command.Command.executeUpdate(Command.java:267)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:233)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:1113)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1436)
+	at org.h2.server.web.WebApp.query(WebApp.java:1111)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1073)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1060)
+	at org.h2.server.web.WebThread.process(WebThread.java:173)
+	at org.h2.server.web.WebThread.run(WebThread.java:93)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+2022-04-11 17:40:25 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SERVIDORES" not found; SQL statement:
+create table componente(
+idComponente int primary key auto_increment,
+tipo varchar(45),
+fkServidor int,
+constraint fkServidor foreign key (fkServidor)
+	references servidores (idServidor)
+) [42102-199]
+2022-04-11 17:40:25 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "COMPONENTE" not found; SQL statement:
+create table historico(
+idRegistro datetime,
+unidadeMedida varchar(45),
+consumo float,
+total float,
+percentualConsumo int,
+fkComponente int,
+constraint fkComponente foreign key (fkComponente)
+	references componente (idComponente)
+) [42102-199]
+2022-04-11 17:47:39 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Column "DKEMPRESAUSUARIO" not found; SQL statement:
+create table usuario(
+idUsuario int primary key auto_increment,
+nome_usuario varchar(45),
+usuario varchar(45),
+senha varchar(45),
+email varchar(45),
+fkEmpresaUsuario int,
+constraint fkEmpresaUsuario foreign key (dkEmpresaUsuario) references empresa (idEmpresa)
+) [42122-199]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:451)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:427)
+	at org.h2.message.DbException.get(DbException.java:205)
+	at org.h2.message.DbException.get(DbException.java:181)
+	at org.h2.table.Table.getColumn(Table.java:708)
+	at org.h2.table.IndexColumn.mapColumns(IndexColumn.java:115)
+	at org.h2.command.ddl.AlterTableAddConstraint.tryUpdate(AlterTableAddConstraint.java:216)
+	at org.h2.command.ddl.AlterTableAddConstraint.update(AlterTableAddConstraint.java:78)
+	at org.h2.command.ddl.CommandWithColumns.createConstraints(CommandWithColumns.java:83)
+	at org.h2.command.ddl.CreateTable.update(CreateTable.java:129)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:133)
+	at org.h2.command.Command.executeUpdate(Command.java:267)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:233)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:1113)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1436)
+	at org.h2.server.web.WebApp.query(WebApp.java:1111)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1073)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1060)
+	at org.h2.server.web.WebThread.process(WebThread.java:173)
+	at org.h2.server.web.WebThread.run(WebThread.java:93)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+2022-04-11 17:47:39 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SERVIDORES" not found; SQL statement:
+create table componente(
+idComponente int primary key auto_increment,
+tipo varchar(45),
+fkServidor int,
+constraint fkServidor foreign key (fkServidor)
+	references servidores (idServidor)
+) [42102-199]
+2022-04-11 17:47:39 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "COMPONENTE" not found; SQL statement:
+create table historico(
+idRegistro datetime,
+unidadeMedida varchar(45),
+consumo float,
+total float,
+percentualConsumo int,
+fkComponente int,
+constraint fkComponente foreign key (fkComponente)
+	references componente (idComponente)
+) [42102-199]
+2022-04-11 17:49:33 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "DROP TALE[*] EMPRESA "; expected "TABLE, INDEX, USER, SEQUENCE, CONSTANT, TRIGGER, VIEW, ROLE, ALIAS, SCHEMA, ALL, DOMAIN, TYPE, DATATYPE, AGGREGATE, SYNONYM"; SQL statement:
+drop tale empresa [42001-199]
+2022-04-11 17:49:35 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "DROP TALE[*] EMPRESA "; expected "TABLE, INDEX, USER, SEQUENCE, CONSTANT, TRIGGER, VIEW, ROLE, ALIAS, SCHEMA, ALL, DOMAIN, TYPE, DATATYPE, AGGREGATE, SYNONYM"; SQL statement:
+drop tale empresa [42001-199]
+2022-04-11 17:49:35 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SERVIDOR" not found; SQL statement:
+drop table servidor [42102-199]
+2022-04-11 17:49:51 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SERVIDOR" not found; SQL statement:
+drop table servidor [42102-199]
+2022-04-11 17:50:26 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SERVIDORES" not found; SQL statement:
+create table componente(
+idComponente int primary key auto_increment,
+tipo varchar(45),
+fkServidor int,
+constraint fkServidor foreign key (fkServidor)
+	references servidores (idServidor)
+) [42102-199]
+2022-04-11 17:50:26 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "COMPONENTE" not found; SQL statement:
+create table historico(
+idRegistro datetime,
+unidadeMedida varchar(45),
+consumo float,
+total float,
+percentualConsumo int,
+fkComponente int,
+constraint fkComponente foreign key (fkComponente)
+	references componente (idComponente)
+) [42102-199]

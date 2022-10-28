@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="CSS/Safecss.css">
+    <!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet"> -->
+    <link rel="stylesheet"
+        href="https://fonts.sandbox.google.com/css?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet"
+        href="https://fonts.sandbox.google.com/css?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <title>CodeSafe | Gráfico</title>
+</head>
+
+<body onload="validarSessao()" class="corpo">
+    <div class="container6">
+        <aside>
+            <div class="top">
+                <div class="code">
+                    <img src="Imagens/logo.png" alt="">
+                </div>
+                <div class="close" id="close-btn">
+                    <span class="material-symbols-outlined">close</span>
+                </div>
+            </div>
+            <div class="sidebar">
+                <a href="#" class="active">
+                    <span class="material-symbols-outlined">grid_view</span>
+                    <h3>Dashboard</h3>
+                </a>
+
+                <a href="Index.html">
+                    <span class="material-symbols-outlined">logout</span>
+                    <h3>Sair</h3>
+                </a>
+            </div>
+        </aside>
+
+        <main>
+
+            <div class="right">
+                <div class="top">
+                    <button class="menu-btn">
+                        <span class="material-symbols-outlined">menu</span>
+                    </button>
+                    <div class="theme-toggler">
+                        <span class="material-symbols-outlined active">light_mode</span>
+                        <span class="material-symbols-outlined">dark_mode</span>
+                    </div>
+                    <div class="profile">
+                        <div class="info">
+                            <p>Olá, <b><span id="nomeUsuario"></span></b>!</p>
+                        </div>
+                        <div class="photoProfile">
+                            <span class="material-symbols-outlined">account_circle</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h1 class="dash">Dashboard</h1>
+
+            <div class="date date4">
+                <h2 class="pe2" id="legendaIdeal">Ideal (0% a 69%)</h2   >
+            </div>
+
+            
+            <div class="date date3">
+                <h2 class="pe2" id="legendaRisco">Risco (70% a 89%)</h2>
+            </div>
+            
+            <div class="date date2">
+                <h2 class="pe2" id="legendaIncidente">Incidente (90% a 100%)<h2>
+            </div>
+
+            <div class="insights">
+                <div class="sales">
+                    <span class="material-symbols-outlined" id="symbolDisco">analytics</span>
+                    <div class="middle">
+                        <div class="left">
+                            <h3>Disco Usado</h3>
+                            <p class="pe" id="discoUsadoID">0%</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="expense">
+                    <span class="material-symbols-outlined" id="symbolRAM">bar_chart</span>
+                    <div class="middle">
+                        <div class="left">
+                            <h3> Último dado do memória RAM</h3>
+                            <p class="pe" id="ramkpiID">0%</p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="income">
+                    <span class="material-symbols-outlined" id="symbolCPU">monitoring</span>
+                    <div class="middle">
+                        <div class="left">
+                            <h3>Último dado da CPU</h3>
+                            <p class="pe" id="cpukpiID">0%</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="incidentes">
+                    <span class="material-symbols-outlined">error</span>
+                    <div class="middle">
+                        <div class="left">
+                            <h3>Número de incidentes ocorridos durante essa sessão</h3>
+                            <p class="pe" id="contadorIncidentes">0</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="graphbox">
+                <div class="box">
+                    <canvas id="memoria"></canvas>
+                </div>
+                <div class="box">
+                    <canvas id="cpu"></canvas>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+    <!-- <script src="Chart.js"></script> !-->
+    <script src="Usuario.js"></script>
+    <script src="Menu.js"></script>
+    <script src="Alerts.js"></script>
+</body>
+
+</html>
+
+<script>
+
+    // alterações conexao azure
+
+
+    function validarSessao() {
+        var usuario = sessionStorage.USUARIO;
+        var senha = sessionStorage.SENHA;
+
+        if (usuario != null && senha != null) {
+
+            nomeUsuario.innerHTML = (`${usuario}`);
+            // finalizarAguardar();
+        }
+    }
+
+    // CONTADOR INCIDENTES/////////
+    const date = new Date();
+    var contadorIncidentes = 0;
+    var houveIncidentes = false;
+
+    function apagarContador() {
+        var dataAtual = date.getDate();
+        var ultimaData = pegarUltimaData();
+
+        if (ultimaData != dataAtual) {
+            contadorIncidentes = 0;
+        }
+    }
+    async function pegarUltimaData() {
+        var ultimaData = await fetch(`/medidas/buscarUltimaData/${sessionStorage.ID_SERVIDOR}`);
+        ultimaData = await ultimaData.json();
+        var contadorIncidentes = await document.getElementById("contadorIncidentes");
+        var dataColetada = contadorIncidentes.innerHTML = await ultimaData[0].dia;
+
+        return dataColetada;
+    }
+    ///////////////////////////////
+
+    var memoria = document.getElementById('memoria').getContext('2d');
+    var cpu = document.getElementById('cpu').getContext('2d');
+
+
+    var myChartMemoria = new Chart(memoria, {
+        type: 'line',
+        data: {
+            datasets: [{
+                label: 'Memória RAM',
+                data: [],
+                backgroundColor: [
+                    'rgb(3, 169, 244)'
+                ],
+                borderColor: [
+                    'rgba(3, 169, 244, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    var myChartCpu = new Chart(cpu, {
+        type: 'line',
+        data: {
+            datasets: [{
+                label: 'CPU',
+                data: [],
+                backgroundColor: [
+                    'rgb(0, 119, 174)'
+                ],
+                borderColor: [
+                    'rgba(0, 119, 174, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    async function get_dataRAMKPI() {
+        var ultimoDadoRAM = await fetch(`/medidas/buscarMedidasRAMKPI/${sessionStorage.ID_SERVIDOR}`);
+        ultimoDadoRAM = await ultimoDadoRAM.json();
+        var ramkpi = document.getElementById("ramkpiID");
+        ramkpi.innerHTML = ultimoDadoRAM[0].percentualConsumo + "%";
+        if (ultimoDadoRAM[0].percentualConsumo >= 90) {
+            document.getElementById("symbolRAM").style.backgroundColor = 'red';
+
+            houveIncidentes = true;
+
+        } else if (ultimoDadoRAM[0].percentualConsumo >= 70) {
+            document.getElementById("symbolRAM").style.backgroundColor = 'yellow';
+        } else {
+            document.getElementById("symbolRAM").style.backgroundColor = '#03a9f4';
+        }
+    }
+
+    async function get_dataCPUKPI() {
+        var ultimoDadoCPU = await fetch(`/medidas/buscarMedidasCPUKPI/${sessionStorage.ID_SERVIDOR}`);
+        ultimoDadoCPU = await ultimoDadoCPU.json();
+        var cpukpi = document.getElementById("cpukpiID");
+        cpukpi.innerHTML = ultimoDadoCPU[0].percentualConsumo + "%";
+        if (ultimoDadoCPU[0].percentualConsumo >= 90) {
+            document.getElementById("symbolCPU").style.backgroundColor = 'red';
+
+            houveIncidentes = true;
+
+        } else if (ultimoDadoCPU[0].percentualConsumo >= 70) {
+            document.getElementById("symbolCPU").style.backgroundColor = 'yellow';
+        } else {
+            document.getElementById("symbolCPU").style.backgroundColor = '#03a9f4';
+        }
+    }
+
+    async function get_dataDisco() {
+        var ultimoDadoDisco = await fetch(`/medidas/buscarMedidasDisco/${sessionStorage.ID_SERVIDOR}`);
+        ultimoDadoDisco = await ultimoDadoDisco.json();
+        var discoUsado = await document.getElementById("discoUsadoID");
+        discoUsado.innerHTML = await ultimoDadoDisco[0].percentualConsumo + "%";
+        if (ultimoDadoDisco[0].percentualConsumo >= 90) {
+            document.getElementById("symbolDisco").style.backgroundColor = 'red';
+        } else if (ultimoDadoDisco[0].percentualConsumo >= 70) {
+            document.getElementById("symbolDisco").style.backgroundColor = 'yellow';
+        } else {
+            document.getElementById("symbolDisco").style.backgroundColor = '#03a9f4';
+        }
+    }
+
+    async function get_dataRAM() {
+        var tempoRealRAM = await fetch(`/medidas/buscarMedidasRAM/${sessionStorage.ID_SERVIDOR}`);
+        tempoRealRAM = await tempoRealRAM.json();
+        for (let i = 0; i < 7; i++) {
+            myChartMemoria.data.labels.shift();
+            myChartMemoria.data.datasets[0].data.shift();
+        }
+        for (let i = 6; i >= 0; i--) {
+            let time = `${tempoRealRAM[i].hora}:${tempoRealRAM[i].minuto}:${tempoRealRAM[i].segundo}`;
+            myChartMemoria.data.labels.push(time)
+            myChartMemoria.data.datasets[0].data.push(parseFloat(tempoRealRAM[i].percentualConsumo))
+            myChartMemoria.update()
+        }
+    }
+
+    async function get_dataCPU() {
+        var tempoRealCPU = await fetch(`/medidas/buscarMedidasCPU/${sessionStorage.ID_SERVIDOR}`);
+        tempoRealCPU = await tempoRealCPU.json();
+        for (let i = 0; i < 7; i++) {
+            myChartCpu.data.labels.shift();
+            myChartCpu.data.datasets[0].data.shift();
+        }
+        for (let i = 6; i >= 0; i--) {
+            let time = `${tempoRealCPU[i].hora}:${tempoRealCPU[i].minuto}:${tempoRealCPU[i].segundo}`;
+            myChartCpu.data.labels.push(time)
+            myChartCpu.data.datasets[0].data.push(parseFloat(tempoRealCPU[i].percentualConsumo))
+            myChartCpu.update()
+        }
+    }
+
+
+    function verificarIncidentes(){
+        if(houveIncidentes){
+            contadorIncidentes++
+            document.getElementById("contadorIncidentes").innerHTML = contadorIncidentes;
+        }
+        houveIncidentes = false;
+    }
+
+    setInterval(() => {
+        get_dataCPUKPI();
+        get_dataRAMKPI();
+        get_dataRAM();
+        get_dataCPU();
+    }, 5000);
+
+    setInterval(() => {
+        verificarIncidentes();
+    }, 120000);
+
+    get_dataDisco();
+
+
+
+</script>

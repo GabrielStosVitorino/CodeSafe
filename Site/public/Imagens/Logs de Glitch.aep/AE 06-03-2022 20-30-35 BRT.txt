@@ -1,0 +1,1 @@
+  06/03/2022 20:30:35 BRT: iniciando composição “Composição 1”.  Saída para: /Users/stefanini/Documents/CodeSafe/Composição 1.aif    06/03/2022 20:30:35 BRT: composição concluída “Composição 1”.  Tempo total decorrido: 0 segundosLog fechado em 06/03/2022 às 20:30:35 BRT
